@@ -23,7 +23,7 @@ main () {
 
 		echo "Starting local network..."
 		solana-test-validator \
-				--bpf-program srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX ./deps/serum-dex/dex/target/deploy/openbook_dex.so \
+				--bpf-program srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX ./deps/serum-dex/dex/target/deploy/serum_dex.so \
 				--bpf-program 22Y43yTVxuUkoRKdm9thyRhQ3SdgQS7c7kB6UNCiaczD ./deps/swap/target/deploy/swap.so \
 				--bpf-program GrAkKfEpTKQuVHG2Y97Y2FF4i7y7Q5AHLK94JBy7Y5yv ./deps/stake/target/deploy/registry.so \
 				--bpf-program 6ebQNeTPZ1j7k3TtkCCtEPRvG7GQsucQrZ7sSEDQi9Ks ./deps/stake/target/deploy/lockup.so \

@@ -278,15 +278,17 @@ impl<'info> OrderbookClient<'info> {
         let limit_price = 1;
         let max_coin_qty = {
             // The loaded market must be dropped before CPI.
-            let market = MarketState::load(&self.market.market, &dex::ID)
+            let market = MarketState::load(&self.market.market, &dex::ID, false)
                 .map_err(|de| ProgramError::from(de))?;
             coin_lots(&market, base_amount)
         };
         let max_native_pc_qty = u64::MAX;
+        let max_ts = i64::MAX;
         self.order_cpi(
             limit_price,
             max_coin_qty,
             max_native_pc_qty,
+            max_ts,
             Side::Ask,
             referral,
         )
@@ -301,10 +303,12 @@ impl<'info> OrderbookClient<'info> {
         let limit_price = u64::MAX;
         let max_coin_qty = u64::MAX;
         let max_native_pc_qty = quote_amount;
+        let max_ts = i64::MAX;
         self.order_cpi(
             limit_price,
             max_coin_qty,
             max_native_pc_qty,
+            max_ts,
             Side::Bid,
             referral,
         )
@@ -323,6 +327,7 @@ impl<'info> OrderbookClient<'info> {
         limit_price: u64,
         max_coin_qty: u64,
         max_native_pc_qty: u64,
+        max_ts: i64,
         side: Side,
         referral: Option<AccountInfo<'info>>,
     ) -> Result<()> {
@@ -361,6 +366,7 @@ impl<'info> OrderbookClient<'info> {
             OrderType::ImmediateOrCancel,
             client_order_id,
             limit,
+            max_ts,
         )
     }
 
