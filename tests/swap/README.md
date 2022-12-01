@@ -22,7 +22,7 @@ git submodule update
 Build it
 
 ```
-cd deps/serum-dex/dex/ && cargo build-bpf && cd ../../../
+cd deps/openbook-dex/dex/ && cargo build-bpf && cd ../../../
 ```
 
 ### Run the Test
