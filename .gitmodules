@@ -13,3 +13,6 @@
 	path = tests/auction-house
 	url = https://github.com/armaniferrante/auction-house
 	branch = armani/pda
+[submodule "tests/swap/deps/openbook-dex"]
+	path = tests/swap/deps/openbook-dex
+	url = https://github.com/openbook-dex/program
