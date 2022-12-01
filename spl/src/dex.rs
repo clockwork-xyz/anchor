@@ -2,17 +2,17 @@ use anchor_lang::solana_program::account_info::AccountInfo;
 use anchor_lang::solana_program::program_error::ProgramError;
 use anchor_lang::solana_program::pubkey::Pubkey;
 use anchor_lang::{context::CpiContext, Accounts, Result, ToAccountInfos};
-use serum_dex::instruction::SelfTradeBehavior;
-use serum_dex::matching::{OrderType, Side};
+use openbook_dex::instruction::SelfTradeBehavior;
+use openbook_dex::matching::{OrderType, Side};
 use std::num::NonZeroU64;
 
-pub use serum_dex;
+pub use openbook_dex;
 
 #[cfg(not(feature = "devnet"))]
-anchor_lang::solana_program::declare_id!("9xQeWvG816bUx9EPjHmaT23yvVM2ZWbrrpZb9PusVFin");
+anchor_lang::solana_program::declare_id!("srmqPvymJeFKQ4zGQed1GFppgkRHL9kaELCbyksJtPX");
 
 #[cfg(feature = "devnet")]
-anchor_lang::solana_program::declare_id!("DESVgJVGajEgKGXhb6XmqDHGz3VjdgP7rEVESBgxmroY");
+anchor_lang::solana_program::declare_id!("EoTcMgcDRTJVZDMZWBoU6rhYHZfkNTVEAfz3uUJRcYGj");
 
 #[allow(clippy::too_many_arguments)]
 pub fn new_order_v3<'info>(
@@ -27,7 +27,7 @@ pub fn new_order_v3<'info>(
     limit: u16,
 ) -> Result<()> {
     let referral = ctx.remaining_accounts.get(0);
-    let ix = serum_dex::instruction::new_order(
+    let ix = openbook_dex::instruction::new_order(
         ctx.accounts.market.key,
         ctx.accounts.open_orders.key,
         ctx.accounts.request_queue.key,
@@ -65,7 +65,7 @@ pub fn cancel_order_v2<'info>(
     side: Side,
     order_id: u128,
 ) -> Result<()> {
-    let ix = serum_dex::instruction::cancel_order(
+    let ix = openbook_dex::instruction::cancel_order(
         &ID,
         ctx.accounts.market.key,
         ctx.accounts.market_bids.key,
@@ -87,7 +87,7 @@ pub fn cancel_order_v2<'info>(
 
 pub fn settle_funds<'info>(ctx: CpiContext<'_, '_, '_, 'info, SettleFunds<'info>>) -> Result<()> {
     let referral = ctx.remaining_accounts.get(0);
-    let ix = serum_dex::instruction::settle_funds(
+    let ix = openbook_dex::instruction::settle_funds(
         &ID,
         ctx.accounts.market.key,
         ctx.accounts.token_program.key,
@@ -112,7 +112,7 @@ pub fn settle_funds<'info>(ctx: CpiContext<'_, '_, '_, 'info, SettleFunds<'info>
 pub fn init_open_orders<'info>(
     ctx: CpiContext<'_, '_, '_, 'info, InitOpenOrders<'info>>,
 ) -> Result<()> {
-    let ix = serum_dex::instruction::init_open_orders(
+    let ix = openbook_dex::instruction::init_open_orders(
         &ID,
         ctx.accounts.open_orders.key,
         ctx.accounts.authority.key,
@@ -131,7 +131,7 @@ pub fn init_open_orders<'info>(
 pub fn close_open_orders<'info>(
     ctx: CpiContext<'_, '_, '_, 'info, CloseOpenOrders<'info>>,
 ) -> Result<()> {
-    let ix = serum_dex::instruction::close_open_orders(
+    let ix = openbook_dex::instruction::close_open_orders(
         &ID,
         ctx.accounts.open_orders.key,
         ctx.accounts.authority.key,
@@ -148,7 +148,7 @@ pub fn close_open_orders<'info>(
 }
 
 pub fn sweep_fees<'info>(ctx: CpiContext<'_, '_, '_, 'info, SweepFees<'info>>) -> Result<()> {
-    let ix = serum_dex::instruction::sweep_fees(
+    let ix = openbook_dex::instruction::sweep_fees(
         &ID,
         ctx.accounts.market.key,
         ctx.accounts.pc_vault.key,
@@ -175,7 +175,7 @@ pub fn initialize_market<'info>(
 ) -> Result<()> {
     let authority = ctx.remaining_accounts.get(0);
     let prune_authority = ctx.remaining_accounts.get(1);
-    let ix = serum_dex::instruction::initialize_market(
+    let ix = openbook_dex::instruction::initialize_market(
         ctx.accounts.market.key,
         &ID,
         ctx.accounts.coin_mint.key,
