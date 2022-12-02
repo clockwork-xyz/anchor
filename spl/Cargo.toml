@@ -23,7 +23,7 @@ dex = ["openbook_dex"]
 anchor-lang = { path = "../lang", version = "0.25.0", features = ["derive"] }
 borsh = { version = "^0.9", optional = true }
 openbook_dex = { version = "0.5.6", features = ["no-entrypoint"], optional = true }
-solana-program = "1.13.5"
+solana-program = "1.13.4"
 spl-token = { version = "3.5.0", features = ["no-entrypoint"], optional = true }
 spl-associated-token-account = { version = "1.1.1", features = ["no-entrypoint"], optional = true }
 mpl-token-metadata = { version = "1.4.3", optional = true, features = ["no-entrypoint"] }
